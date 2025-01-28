@@ -86,12 +86,6 @@ Este projeto está licenciado sob a MIT License - veja o arquivo LICENSE para ma
 
 ### Passos seguintes:
 
-#### 1. Crie um arquivo `requirements.txt` para o seu backend com o conteúdo:
-
-   ```txt
-   Flask
-   langdetect
-   ```
 Para rodar o backend, o Flask deve estar instalado. Se não estiver, basta rodar:
 
 ```bash
