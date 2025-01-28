@@ -1,0 +1,109 @@
+* {
+    font-family: Helvetica;
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    background-color: #444;
+    width: 39.5%;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid black;
+    padding: 30px;
+    border-radius: 5%;
+}
+
+.logo img {
+    display: flex;
+    margin: 0 auto;
+    padding-bottom: 15px;
+    width: 130px;
+}
+
+input[type="text"],
+input[type="submit"] {
+    background-color: white;
+    border: 1px solid black;
+    padding: 6px;
+    border-radius: 5%;
+}
+
+input[type="text"] {
+    width: 60%;
+    border-radius: 5%;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.mensagem {
+    border: 1px solid black;
+    border-radius: 5cm;
+    width: 607px;
+    background-color: white;
+    margin-bottom: 15px;
+}
+
+.mensagens {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.mensagens textarea {
+    width: 98%;
+    height: 480px;
+    min-height: 30px;
+    resize: none;
+    border: none;
+    background-color: white;
+    color: #333;
+    padding: 5px;
+    font-size: 16px;
+    font-family: Helvetica;
+    border: 1px solid black;
+    border-radius: 3%;
+    overflow: hidden; 
+    resize: none;
+    word-wrap: break-word;
+    overflow-y: scroll;
+}
+
+.mensagens textarea::-webkit-scrollbar {
+    width: 0px; /* Remove a barra de rolagem */
+}
+
+.mensagem input[type="text"],
+input[type="submit"] {
+    border-radius: 5cm;
+    color: #333;
+}
+
+/* Ajustando para garantir que as mensagens fiquem uma abaixo da outra */
+.mensagens {
+    display: flex;
+    flex-direction: column;  /* Coloca as mensagens uma embaixo da outra */
+    gap: 10px;  /* Espaço entre as mensagens */
+}
+
+.mensagem input[type="text"],
+input[type="submit"] {
+    border: none;
+}
+
+input[type="submit"] {
+    padding: 6px 15.3px;
+}
+
+.btn-enviar {
+    margin-left: 26%;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn-enviar:hover {
+    background-color: #009e0b;
+    color: white;
+}

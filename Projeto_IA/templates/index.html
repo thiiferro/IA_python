@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatBot</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="ico" href="/static/DALL·E-2025-01-28-11.31.ico">
+</head>
+<body>
+    <div class="form-header">
+        <div class="logo">
+            <img src="/static/images/images-removebg-preview.png" alt="Llama">
+        </div>
+    </div>
+    
+    <div class="form-container">
+        <div class="form-body">
+            <form id="chatForm">
+                <div class="conversa">
+                    <div class="mensagens">
+                        <textarea name="chatbot" class="chatbot" disabled></textarea>
+                    </div>
+
+                    <div class="mensagem">
+                        <input type="text" name="chat" class="chat" id="inputMensagem" placeholder="Envie sua mensagem">
+                        <input type="submit" value="Enviar" class="btn-enviar" id="enviar">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".btn-enviar").addEventListener("click", async function (event) {
+                event.preventDefault();  // Evita recarregar a página
+
+                let mensagem = document.querySelector(".chat").value;
+                let chatBox = document.querySelector(".chatbot");
+
+                // Exibe a mensagem do usuário
+                chatBox.value += `Você: ${mensagem}\n\n`;
+            
+                // Limpa o campo de entrada
+                document.querySelector(".chat").value = "";
+
+                // Simula a resposta da IA com um pequeno atraso
+                let response = await fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ mensagem })
+                });
+
+                let data = await response.json();
+
+                // Exibe a resposta da IA após um pequeno delay
+                setTimeout(() => {
+                    chatBox.value += `Ana: ${data.resposta}\n\n`;
+                    chatBox.scrollTop = chatBox.scrollHeight; // Rolagem para o final
+                }, 1000);  // Delay de 1 segundo para simular a resposta da IA
+            });
+        });
+
+    </script>
+</body>
+</html>
