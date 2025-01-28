@@ -1,4 +1,4 @@
-# ChatBot IA (Ana)
+# ChatBot IA (Karol)
 
 Este é um chatbot simples e interativo, utilizando a tecnologia de IA para conversar com os usuários. A IA é chamada **Ana**, e ela responde de forma amigável no mesmo idioma que o usuário utiliza. O projeto foi desenvolvido com HTML, CSS, JavaScript e Python (Flask) para o backend.
 
