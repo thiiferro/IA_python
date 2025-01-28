@@ -17,8 +17,7 @@ Este é um chatbot simples e interativo, utilizando a tecnologia de IA para conv
 ## Tecnologias Utilizadas
 
 - **Frontend**: HTML, CSS, JavaScript.
-- **Backend**: Python (Flask), `langdetect` (para detectar o idioma da mensagem).
-- **Outras dependências**: `franc-min` para detectar idiomas no frontend.
+- **Backend**: Python (Flask)
 
 ## Como Usar
 
