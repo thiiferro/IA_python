@@ -35,9 +35,8 @@ Backend
 Instale as dependências do Python para o backend:
 
 ```bash
-cd chatbot-ia
-pip install -r requirements.txt
-Flask e langdetect estão listados em requirements.txt.
+pip install openai
+pip install flask
 ```
 
 Frontend
