@@ -22,7 +22,7 @@ Este é um chatbot simples e interativo, utilizando a tecnologia de IA para conv
 Primeiro, clone o repositório para o seu computador:
 
 ```bash
-git clone https://github.com/seu-usuario/chatbot-ia.git
+git clone https://github.com/thiiferro/IA_python.git
 ```
 
 ### 2. Instalar Dependências
