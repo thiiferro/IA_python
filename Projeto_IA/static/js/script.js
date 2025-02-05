@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Resposta recebida:", data);  // Depuração para ver no console
 
             if (data.resposta) {
-                chatBox.value += `Ana: ${data.resposta}\n\n`;
+                chatBox.value += `Megan: ${data.resposta}\n\n`;
                 chatBox.scrollTop = chatBox.scrollHeight;
             } else {
                 chatBox.value += "Erro: Resposta vazia da IA.\n\n";
