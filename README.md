@@ -59,11 +59,11 @@ O chat exibe as mensagens de forma sequencial, uma abaixo da outra, com rolagem 
 Exemplo de Como a IA Responde
 Usuário: Olá!
 
-Ana: Olá! Como posso te ajudar hoje?
+Megan: Olá! Como posso te ajudar hoje?
 
 Usuário: Can you help me with coding?
 
-Ana: Of course! What programming language are you using?
+Megan: Of course! What programming language are you using?
 
 Personalização
 Você pode personalizar a IA de diversas formas:
