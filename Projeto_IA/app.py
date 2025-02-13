@@ -14,12 +14,9 @@ app = Flask(__name__)
 client = OpenAI(base_url="http://localhost:1234/v1", api_key="Meta-Llama-3.1-8B-Instruct-GGUF")
 
 PASTA_ARQUIVOS = "arquivos"
-
-# Dicionário para armazenar o conteúdo dos arquivos
 indice_arquivos = {}
 
 def indexar_arquivos():
-    """ Lê todos os arquivos e armazena em um índice """
     global indice_arquivos
     indice_arquivos = {}
 
@@ -29,10 +26,9 @@ def indexar_arquivos():
     for root, _, files in os.walk(PASTA_ARQUIVOS):
         for arquivo in files:
             caminho_completo = os.path.join(root, arquivo)
+            conteudo = ""
 
             try:
-                conteudo = ""
-
                 if arquivo.endswith(".pdf"):
                     with open(caminho_completo, "rb") as f:
                         reader = PdfReader(f)
@@ -57,7 +53,7 @@ def indexar_arquivos():
                         conteudo = f.read()
 
                 if conteudo:
-                    indice_arquivos[arquivo] = conteudo  # Armazena o conteúdo no índice
+                    indice_arquivos[arquivo] = conteudo
 
             except Exception as e:
                 print(f"Erro ao ler {arquivo}: {e}")
@@ -65,17 +61,15 @@ def indexar_arquivos():
     print("Indexação concluída!")
 
 def buscar_conteudo(pergunta):
-    """ Busca os arquivos mais relevantes para a pergunta do usuário """
-    palavras_chave = set(pergunta.lower().split())  # Quebra a pergunta em palavras-chave
+    palavras_chave = set(pergunta.lower().split())
     arquivos_relevantes = []
 
     for nome_arquivo, conteudo in indice_arquivos.items():
-        if any(palavra in conteudo.lower() for palavra in palavras_chave):  # Se o arquivo tem alguma palavra da pergunta
-            arquivos_relevantes.append(conteudo[:2000])  # Limita o tamanho para não passar do limite da IA
+        if any(palavra in conteudo.lower() for palavra in palavras_chave):
+            arquivos_relevantes.append(conteudo[:2000])
 
     return "\n".join(arquivos_relevantes) if arquivos_relevantes else "Nenhuma informação relevante encontrada."
 
-# Agendador para reindexar os arquivos diariamente
 schedule.every().day.at("00:00").do(indexar_arquivos)
 
 def executar_agendador():
@@ -95,21 +89,28 @@ def chat():
     dados = request.json
     mensagem_usuario = dados.get("mensagem", "")
 
-    # Busca apenas os trechos relevantes nos arquivos indexados
+    if not mensagem_usuario:
+        return jsonify({"resposta": "Por favor, envie uma mensagem válida."})
+
     contexto = buscar_conteudo(mensagem_usuario)
 
-    completion = client.chat.completions.create(
-        model="meta-llama-3.1-8b-instruct",
-        messages=[
-            {"role": "system", "content": contexto},
-            {"role": "user", "content": mensagem_usuario}
-        ],
-        temperature=0.7,
-    )
+    try:
+        completion = client.chat.completions.create(
+            model="meta-llama-3.1-8b-instruct",
+            messages=[
+                {"role": "system", "content": contexto},
+                {"role": "user", "content": mensagem_usuario}
+            ],
+            temperature=0.7,
+        )
 
-    resposta = completion.choices[0].message.content
-    return jsonify({"resposta": resposta})
+        resposta = completion.choices[0].message.content if completion.choices else "A IA não retornou uma resposta."
+        return jsonify({"resposta": resposta})
+
+    except Exception as e:
+        print("Erro na IA:", e)
+        return jsonify({"resposta": "Erro ao processar a resposta da IA."})
 
 if __name__ == "__main__":
-    indexar_arquivos()  # Carrega os arquivos ao iniciar
+    indexar_arquivos()
     app.run(debug=True)
