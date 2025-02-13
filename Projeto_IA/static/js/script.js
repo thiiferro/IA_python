@@ -1,39 +1,55 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const chatBox = document.querySelector(".chatbot");
-    const inputMensagem = document.querySelector(".chat");
-    const btnEnviar = document.querySelector(".btn-enviar");
+    const form = document.getElementById("chatForm");
+    const inputMensagem = document.getElementById("inputMensagem");
+    const inputImagem = document.getElementById("imagem");
+    const mensagensContainer = document.querySelector(".mensagens textarea"); 
+    const darkModeButton = document.getElementById("dark-mode-button");
 
-    async function enviarMensagem(event) {
-        event.preventDefault();
-
-        let mensagem = inputMensagem.value.trim();
-        if (!mensagem) return; // Evita mensagens vazias
-
-        // Exibe a mensagem do usuário
-        chatBox.value += `Você: ${mensagem}\n\n`;
-        inputMensagem.value = "";
-
-        try {
-            let response = await fetch("/chat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ mensagem })
-            });
-
-            let data = await response.json();
-            console.log("Resposta recebida:", data);  // Depuração para ver no console
-
-            if (data.resposta) {
-                chatBox.value += `Megan: ${data.resposta}\n\n`;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            } else {
-                chatBox.value += "Erro: Resposta vazia da IA.\n\n";
-            }
-        } catch (error) {
-            console.error("Erro ao enviar mensagem:", error);
-            chatBox.value += "Erro ao se comunicar com o servidor.\n\n";
-        }
+    if (localStorage.getItem("dark-mode") === "enabled") {
+        document.body.classList.add("dark-mode");
     }
 
-    btnEnviar.addEventListener("click", enviarMensagem);
+    darkModeButton.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+        localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+    });
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const mensagemTexto = inputMensagem.value.trim();
+        if (!mensagemTexto) {
+            alert("Digite uma mensagem.");
+            return;
+        }
+
+        // Limpa o input imediatamente após pegar o valor
+        inputMensagem.value = "";
+        inputMensagem.focus();
+
+        mensagensContainer.value += "Você: " + mensagemTexto + "\n";
+        mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
+
+        try {
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ mensagem: mensagemTexto })
+            });
+
+            if (!response.ok) {
+                throw new Error("Erro ao obter resposta da IA.");
+            }
+
+            const data = await response.json();
+            const respostaIA = data.resposta || "Não consegui entender sua solicitação.";
+
+            mensagensContainer.value += "Megan: " + respostaIA + "\n";
+            mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
+
+        } catch (error) {
+            console.error("Erro:", error);
+            mensagensContainer.value += "Erro ao obter resposta da IA.\n";
+        }
+    });
 });
