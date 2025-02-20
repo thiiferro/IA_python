@@ -7,17 +7,17 @@
 
 /* Estilos do formulário */
 .form-container {
-    background-color: #dfc900; /* Amarelo */
+    background-color: #2681ff; /* Amarelo */
     width: 60%;
     margin: 0 auto;
     position: relative;
-    border: 2px solid #c7b300;
+    border: 2px solid #004fbc;
     padding: 30px;
     border-radius: 2rem;
 }
 
 .form-container.dark-mode {
-    background-color: #2681ff; /* Azul no modo escuro */
+    background-color: #2061bd; /* Azul no modo escuro */
     border: 2px solid #004fbc;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .form-header .logo {
-    flex: 5;
+    flex: 1;
     display: flex;
     justify-content: center; /* Centraliza a logo */
 }
@@ -39,7 +39,7 @@
 .form-header .logo img {
     display: block;
     width: 70px;
-    margin-left: 48%;
+    margin-left: 50%;
 }
 
 .form-header .dark-mode-button {
@@ -95,14 +95,14 @@ input:focus {
     cursor: pointer;
     transition: 0.5s;
     padding: 6px 12px;
-    background-color: #2681ff; /* Amarelo */
+    background-color: #3066ae; /* Amarelo */
     color: #fff;
     border-radius: 5cm;
     border: none;
 }
 
 .btn-enviar:hover {
-    background-color: #2270de; /* Tom mais escuro de amarelo */
+    background-color: #1a3d6e; /* Tom mais escuro de amarelo */
 }
 
 .btn-anexar {
@@ -141,7 +141,7 @@ input:focus {
     font-size: 16px;
     font-family: Helvetica;
     border: 2px solid #dedede;
-    border-radius: 3%;
+    border-radius: 1rem;
     overflow: hidden;
     word-wrap: break-word;
     overflow-y: scroll;
