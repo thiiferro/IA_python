@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
 
-            // Adiciona "Ana" antes de começar a mostrar a resposta
-            adicionarMensagem("Ana", "");
+            // Adiciona "Megan" antes de começar a mostrar a resposta
+            adicionarMensagem("Megan", "");
 
             let bufferResposta = "";  // Para armazenar a resposta parcial
             while (true) {
@@ -67,13 +67,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 const chunk = decoder.decode(value, { stream: true });
                 bufferResposta += chunk;
                 
-                // Atualiza a última linha de "Ana" com o conteúdo parcial
+                // Atualiza a última linha de "Megan" com o conteúdo parcial
                 // 1. Remove a última linha (placeholder vazio da Ana)
                 const linhas = mensagensContainer.value.split("\n");
                 linhas.pop(); // remove a linha vazia
                 
                 // 2. Adiciona novamente a linha com o conteúdo parcial
-                linhas.push(`Ana: ${bufferResposta}`);
+                linhas.push(`Megan: ${bufferResposta}`);
 
                 // 3. Atualiza o textarea
                 mensagensContainer.value = linhas.join("\n") + "\n";
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         } catch (error) {
             console.error("Erro:", error);
-            adicionarMensagem("Ana", "Erro ao obter resposta da IA.");
+            adicionarMensagem("Megan", "Erro ao obter resposta da IA.");
         }
     }
 });
