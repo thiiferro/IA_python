@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 bufferResposta += chunk;
                 
                 // Atualiza a última linha de "Megan" com o conteúdo parcial
-                // 1. Remove a última linha (placeholder vazio da Ana)
+                // 1. Remove a última linha (placeholder vazio da Megan)
                 const linhas = mensagensContainer.value.split("\n");
                 linhas.pop(); // remove a linha vazia
                 
