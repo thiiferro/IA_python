@@ -42,8 +42,12 @@
 
 .form-header .dark-mode-button {
     display: flex;
-    justify-content: flex-end; /* Alinha o botão à direita */
+    width: 80px;
+    height: 35px;
+    background-color: #333;
+    border-radius: 130px;
 }
+
 
 /* Logo */
 .logo img {
@@ -175,31 +179,37 @@ body.dark-mode .mensagem{
     box-shadow: 1px 1px 20px #292929;
 }
 
+body.dark-mode .form-header .dark-mode-button{
+    background-color: #fff;
+}
+
 /* Botão de alternância de modo */
 #dark-mode-button {
     cursor: pointer;
-    background-color: #333; /* Amarelo */
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5cm;
+    background-color: #fff;
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
     transition: 0.3s;
-    font-size: 16px;
-    display: inline-block;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    transform: scale(.8);
+    margin-left: 0px;
 }
 
+
 #dark-mode-button:hover {
-    background-color: #474747;
+    background-color: #c2c2c2;
 }
 
 /* Botão de alternância no modo escuro */
 body.dark-mode #dark-mode-button {
-    background-color: #fff;
+    background-color: #333;
     color: #333;
 }
 
 body.dark-mode #dark-mode-button:hover {
-    background-color: #b4b4b4;
+    background-color: #4d4d4d;
+}
+
+.dark-mode-button.dark .indicador{
+    margin-left: 45px;
 }
