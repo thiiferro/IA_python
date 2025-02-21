@@ -62,11 +62,13 @@
     width: 100%;
     background-color: #fff;
     margin-bottom: 2px;
+    margin-top: -50px;
     padding: 30px;
     display: flex;
     align-items: center; 
     justify-content: space-between;
     box-shadow: 1px 1px 20px;
+    position: relative;
 }
 
 .mensagem #inputMensagem {
@@ -123,15 +125,15 @@ input:focus {
     padding-bottom: 10px;
 }
 
-.mensagens textarea {
-    width: 98%;
-    height: 480px;
+.mensagens .chatbot {
+    width: 109%;
+    height: 600px;
     min-height: 30px;
     resize: none;
     border: none;
     background-color: white;
     color: #333; /* Texto em #333 */
-    padding: 5px;
+    padding: 20px;
     font-size: 16px;
     font-family: Helvetica;
     border-radius: 1rem;
@@ -140,8 +142,7 @@ input:focus {
     overflow-y: scroll;
 }
 
-/* Remove a barra de rolagem do textarea */
-.mensagens textarea::-webkit-scrollbar {
+.mensagens .chatbot::-webkit-scrollbar {
     width: 0px;
 }
 
@@ -164,9 +165,10 @@ body.dark-mode .btn-enviar:hover, body.dark-mode .btn-anexar:hover {
     background-color: #b9b9b9;
 }
 
-body.dark-mode .mensagens textarea {
-    background-color: #333; /* Texto mais claro sobre fundo escuro */
-    color: #fff; /* Texto branco no textarea */
+body.dark-mode .mensagens .chatbot {
+    background-color: #333;
+    color: #fff;
+    width: 103.8%;
 }
 
 body.dark-mode .mensagem #inputMensagem {
@@ -176,7 +178,7 @@ body.dark-mode .mensagem #inputMensagem {
 
 body.dark-mode .mensagem{
     background-color: #525252;
-    box-shadow: 1px 1px 20px #292929;
+    box-shadow: 1px 1px 20px #1d1d1d;
 }
 
 body.dark-mode .form-header .dark-mode-button{

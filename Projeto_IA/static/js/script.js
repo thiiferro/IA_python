@@ -1,21 +1,42 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
+    // Seleciona os elementos
     const form = document.getElementById("chatForm");
-    const inputMensagem = document.getElementById("inputMensagem");
-    const mensagensContainer = document.querySelector(".mensagens textarea"); 
+    const inputMensagem = document.querySelector("#inputMensagem");
+    const mensagensContainer = document.querySelector(".mensagens .chatbot");
     const darkModeButton = document.getElementById("dark-mode-button");
+
+    // Verificações de segurança para evitar null
+    if (!form) {
+        console.error("Elemento com ID 'chatForm' não encontrado no HTML.");
+        return;
+    }
+    if (!inputMensagem) {
+        console.error("Elemento com ID 'inputMensagem' não encontrado no HTML.");
+        return;
+    }
+    if (!mensagensContainer) {
+        console.error("Elemento '.mensagens .chatbot' não encontrado no HTML.");
+        return;
+    }
+    if (!darkModeButton) {
+        console.error("Elemento com ID 'dark-mode-button' não encontrado no HTML.");
+        return;
+    }
 
     // Ativar modo escuro se já estiver salvo no localStorage
     if (localStorage.getItem("dark-mode") === "enabled") {
         document.body.classList.add("dark-mode");
     }
 
+    // Evento para alternar entre modos claro e escuro
     darkModeButton.addEventListener("click", () => {
         document.body.classList.toggle("dark-mode");
         darkModeButton.classList.toggle("dark");
         localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
     });
 
-    form.addEventListener("submit", async function (event) {
+    // Adiciona evento de envio ao formulário
+    form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const mensagemTexto = inputMensagem.value.trim();
@@ -24,22 +45,27 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Exibir mensagem do usuário no chat
+        // Exibe a mensagem do usuário
         adicionarMensagem("Você", mensagemTexto);
-        
+
         // Limpa o campo de entrada e mantém o foco
         inputMensagem.value = "";
         inputMensagem.focus();
 
-        // Iniciar resposta da IA
+        // Envia a mensagem ao backend e obtém a resposta
         await obterRespostaIA(mensagemTexto);
     });
 
+    // Função para adicionar mensagens na div de chat
     function adicionarMensagem(remetente, mensagem) {
-        mensagensContainer.value += `${remetente}: ${mensagem}\n`;
+        const mensagemDiv = document.createElement("div");
+        mensagemDiv.classList.add("row");
+        mensagemDiv.innerHTML = `<strong>${remetente}:</strong> ${mensagem}`;
+        mensagensContainer.appendChild(mensagemDiv);
         mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
     }
 
+    // Função para enviar mensagem ao backend e tratar a resposta
     async function obterRespostaIA(mensagemTexto) {
         try {
             const response = await fetch("/chat", {
@@ -52,35 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error("Erro ao obter resposta da IA.");
             }
 
-            // Lê o corpo da resposta como um stream
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder();
-
-            // Adiciona "Megan" antes de começar a mostrar a resposta
-            adicionarMensagem("Megan", "");
-
-            let bufferResposta = "";  // Para armazenar a resposta parcial
-            while (true) {
-                const { value, done } = await reader.read();
-                if (done) {
-                    break;
-                }
-                const chunk = decoder.decode(value, { stream: true });
-                bufferResposta += chunk;
-                
-                // Atualiza a última linha de "Megan" com o conteúdo parcial
-                // 1. Remove a última linha (placeholder vazio da Megan)
-                const linhas = mensagensContainer.value.split("\n");
-                linhas.pop(); // remove a linha vazia
-                
-                // 2. Adiciona novamente a linha com o conteúdo parcial
-                linhas.push(`Megan: ${bufferResposta}`);
-
-                // 3. Atualiza o textarea
-                mensagensContainer.value = linhas.join("\n") + "\n";
-                mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
-            }
-
+            // Lê a resposta como texto simples
+            const respostaIA = await response.text();
+            adicionarMensagem("Megan", respostaIA);
         } catch (error) {
             console.error("Erro:", error);
             adicionarMensagem("Megan", "Erro ao obter resposta da IA.");
