@@ -7,18 +7,16 @@
 
 /* Estilos do formulário */
 .form-container {
-    background-color: #2681ff; /* Amarelo */
+    background-color: transparent;
     width: 60%;
     margin: 0 auto;
     position: relative;
-    border: 2px solid #004fbc;
     padding: 30px;
     border-radius: 2rem;
 }
 
 .form-container.dark-mode {
-    background-color: #2061bd; /* Azul no modo escuro */
-    border: 2px solid #004fbc;
+    background-color: transparent; /* Azul no modo escuro */
 }
 
 /* Cabeçalho */
@@ -38,7 +36,7 @@
 
 .form-header .logo img {
     display: block;
-    width: 70px;
+    width: 120px;
     margin-left: 50%;
 }
 
@@ -56,27 +54,19 @@
 
 /* Área de envio de mensagens */
 .mensagem {
-    border-radius: 5cm;
+    border-radius: 1.5rem;
     width: 100%;
-    background-color: none;
-    margin-bottom: 5px;
-    padding-left: 5px;
+    background-color: #fff;
+    margin-bottom: 2px;
+    padding: 30px;
     display: flex;
     align-items: center; 
     justify-content: space-between;
-}
-
-.mensagem input[type="submit"] {
-    border-radius: 5cm;
-    color: #fff;
-    background-color: none;
-    border: 1px solid black;
-    padding: 6px 8px;
-    border: none;
+    box-shadow: 1px 1px 20px;
 }
 
 .mensagem #inputMensagem {
-    flex: 0.98;
+    flex: 0.9;
     background-color: transparent;
     color: #333; /* Cor normal */
     border: none;
@@ -95,14 +85,14 @@ input:focus {
     cursor: pointer;
     transition: 0.5s;
     padding: 6px 12px;
-    background-color: #3066ae; /* Amarelo */
+    background-color: #333;
     color: #fff;
-    border-radius: 5cm;
+    border-radius: 0.6rem;
     border: none;
 }
 
 .btn-enviar:hover {
-    background-color: #1a3d6e; /* Tom mais escuro de amarelo */
+    background-color: #555555;
 }
 
 .btn-anexar {
@@ -140,7 +130,6 @@ input:focus {
     padding: 5px;
     font-size: 16px;
     font-family: Helvetica;
-    border: 2px solid #dedede;
     border-radius: 1rem;
     overflow: hidden;
     word-wrap: break-word;
@@ -159,22 +148,21 @@ body.dark-mode {
 }
 
 body.dark-mode .form-container {
-    background-color: #2681ff; /* Azul no modo escuro */
-    border: 2px solid #004fbc;
+    background-color: transparent; /* Azul no modo escuro */
 }
 
 body.dark-mode .btn-enviar, body.dark-mode .btn-anexar {
-    background-color: #dfc900; /* Amarelo no modo escuro */
+    background-color: #fff; 
+    color: #333;
 }
 
 body.dark-mode .btn-enviar:hover, body.dark-mode .btn-anexar:hover {
-    background-color: #b79e00; /* Tom mais escuro de amarelo no modo escuro */
+    background-color: #b9b9b9;
 }
 
 body.dark-mode .mensagens textarea {
     background-color: #333; /* Texto mais claro sobre fundo escuro */
     color: #fff; /* Texto branco no textarea */
-    border: 2px solid #474747;
 }
 
 body.dark-mode .mensagem #inputMensagem {
@@ -182,10 +170,15 @@ body.dark-mode .mensagem #inputMensagem {
     border-bottom: 1px solid #000000; /* Cor de borda branca */
 }
 
+body.dark-mode .mensagem{
+    background-color: #525252;
+    box-shadow: 1px 1px 20px #292929;
+}
+
 /* Botão de alternância de modo */
 #dark-mode-button {
     cursor: pointer;
-    background-color: #dfc900; /* Amarelo */
+    background-color: #333; /* Amarelo */
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -198,14 +191,15 @@ body.dark-mode .mensagem #inputMensagem {
 }
 
 #dark-mode-button:hover {
-    background-color: #b79e00; /* Tom mais escuro de amarelo ao passar o mouse */
+    background-color: #474747;
 }
 
 /* Botão de alternância no modo escuro */
 body.dark-mode #dark-mode-button {
-    background-color: #2681ff; /* Azul no modo escuro */
+    background-color: #fff;
+    color: #333;
 }
 
 body.dark-mode #dark-mode-button:hover {
-    background-color: #0056b3; /* Tom mais escuro de azul no modo escuro */
+    background-color: #b4b4b4;
 }
