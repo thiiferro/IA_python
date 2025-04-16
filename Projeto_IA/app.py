@@ -13,7 +13,7 @@ app = Flask(__name__, static_url_path='/Projeto_IA/static')
 
 # Inicializa o cliente do OpenAI
 client = OpenAI(
-    base_url="http://127.0.0.1:1234",
+    base_url="http://127.0.0.1:1234/v1",
     api_key="meta-llama-3-8b-instruct",
     timeout=160
 )
@@ -132,7 +132,7 @@ t.start()
 def index():
     return render_template("index.html")
 
-@app.route("/chat", methods=["POST"])
+@app.route("/chat/completions", methods=["POST"])
 def chat():
     dados = request.json
     mensagem_usuario = dados.get("mensagem", "")
@@ -165,7 +165,7 @@ def chat():
         return Response(resposta_gerada, content_type='text/plain')
 
     except Exception as e:
-        print("Erro na IA:", e)
+        print("Erro na IA:", str(e))
         return Response("Desculpe, houve um erro ao processar a resposta.", content_type='text/plain')
 
 if __name__ == "__main__":

@@ -90,10 +90,10 @@ input:focus {
 .btn-enviar {
     cursor: pointer;
     transition: 0.5s;
-    padding: 6px 12px;
+    padding: 17px 17px;
     background-color: #333;
     color: #fff;
-    border-radius: 0.6rem;
+    border-radius: 50%;
     border: none;
 }
 
@@ -194,7 +194,6 @@ body.dark-mode .form-header .dark-mode-button{
     border-radius: 100%;
     transition: 0.3s;
     transform: scale(.8);
-    margin-left: 0px;
 }
 
 
@@ -213,5 +212,5 @@ body.dark-mode #dark-mode-button:hover {
 }
 
 .dark-mode-button.dark .indicador{
-    margin-left: 45px;
+    transform: translateX(-30%);
 }
