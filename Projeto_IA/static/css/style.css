@@ -1,4 +1,4 @@
-/* Resetando margens e paddings */
+Resetando margens e paddings
 * {
     font-family: Helvetica;
     margin: 0;
@@ -7,16 +7,18 @@
 
 /* Estilos do formulário */
 .form-container {
-    background-color: transparent;
+    background-color: #fff; /* Amarelo */
     width: 60%;
     margin: 0 auto;
     position: relative;
+    border: 2px solid #fff;
     padding: 30px;
     border-radius: 2rem;
 }
 
 .form-container.dark-mode {
-    background-color: transparent; /* Azul no modo escuro */
+    background-color: #333; /* Azul no modo escuro */
+    border: 2px solid #333;
 }
 
 /* Cabeçalho */
@@ -25,7 +27,7 @@
     justify-content: space-around; /* Distribui a logo e o botão para os extremos */
     align-items: center; /* Alinha verticalmente */
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .form-header .logo {
@@ -42,18 +44,14 @@
 
 .form-header .dark-mode-button {
     display: flex;
-    width: 80px;
-    height: 35px;
-    background-color: #333;
-    border-radius: 130px;
+    justify-content: flex-end;
 }
-
 
 /* Logo */
 .logo img {
     display: flex;
     margin: 0 auto;
-    padding-bottom: 10px;
+    padding-bottom: 0;
 }
 
 /* Área de envio de mensagens */
@@ -71,8 +69,17 @@
     position: relative;
 }
 
+.mensagem input[type="submit"] {
+    border-radius: 5cm;
+    color: #fff;
+    background-color: none;
+    border: 1px solid black;
+    padding: 6px 8px;
+    border: none;
+}
+
 .mensagem #inputMensagem {
-    flex: 0.9;
+    flex: 0.98;
     background-color: transparent;
     color: #333; /* Cor normal */
     border: none;
@@ -90,15 +97,15 @@ input:focus {
 .btn-enviar {
     cursor: pointer;
     transition: 0.5s;
-    padding: 17px 17px;
-    background-color: #333;
+    padding: 15px;
+    background-color: #000000; /* Amarelo */
     color: #fff;
     border-radius: 50%;
     border: none;
 }
 
 .btn-enviar:hover {
-    background-color: #555555;
+    background-color: #272727; /* Tom mais escuro de amarelo */
 }
 
 .btn-anexar {
@@ -125,24 +132,26 @@ input:focus {
     padding-bottom: 10px;
 }
 
-.mensagens .chatbot {
+.mensagens textarea {
     width: 109%;
-    height: 600px;
+    height: 700px;
     min-height: 30px;
+    margin-left: 1%;
     resize: none;
     border: none;
     background-color: white;
     color: #333; /* Texto em #333 */
-    padding: 20px;
+    padding: 5px;
     font-size: 16px;
     font-family: Helvetica;
-    border-radius: 1rem;
+    outline: none;
     overflow: hidden;
     word-wrap: break-word;
     overflow-y: scroll;
 }
 
-.mensagens .chatbot::-webkit-scrollbar {
+/* Remove a barra de rolagem do textarea */
+.mensagens textarea::-webkit-scrollbar {
     width: 0px;
 }
 
@@ -153,22 +162,22 @@ body.dark-mode {
 }
 
 body.dark-mode .form-container {
-    background-color: transparent; /* Azul no modo escuro */
+    background-color: #333; /* Azul no modo escuro */
+    border: 2px solid #333;
 }
 
-body.dark-mode .btn-enviar, body.dark-mode .btn-anexar {
-    background-color: #fff; 
-    color: #333;
+body.dark-mode .btn-enviar{
+    background-color: #ffffff; /* Amarelo no modo escuro */
+    color: #000000;
 }
 
 body.dark-mode .btn-enviar:hover, body.dark-mode .btn-anexar:hover {
-    background-color: #b9b9b9;
+    background-color: #e2e2e2; /* Tom mais escuro de amarelo no modo escuro */
 }
 
-body.dark-mode .mensagens .chatbot {
-    background-color: #333;
-    color: #fff;
-    width: 103.8%;
+body.dark-mode .mensagens textarea {
+    background-color: #333; /* Texto mais claro sobre fundo escuro */
+    color: #fff; /* Texto branco no textarea */
 }
 
 body.dark-mode .mensagem #inputMensagem {
@@ -181,36 +190,30 @@ body.dark-mode .mensagem{
     box-shadow: 1px 1px 20px #1d1d1d;
 }
 
-body.dark-mode .form-header .dark-mode-button{
-    background-color: #fff;
-}
-
 /* Botão de alternância de modo */
 #dark-mode-button {
     cursor: pointer;
-    background-color: #fff;
-    width: 35px;
-    height: 35px;
-    border-radius: 100%;
+    background-color: transparent;
+    color: black;
+    border: none;
+    padding: 17px;
+    border-radius: 5cm;
     transition: 0.3s;
-    transform: scale(.8);
+    font-size: 25px;
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transition: 0.5s;
 }
-
-
 #dark-mode-button:hover {
-    background-color: #c2c2c2;
+    color: #2681ff;
 }
 
 /* Botão de alternância no modo escuro */
 body.dark-mode #dark-mode-button {
-    background-color: #333;
-    color: #333;
+    color: #fff;
 }
 
-body.dark-mode #dark-mode-button:hover {
-    background-color: #4d4d4d;
-}
-
-.dark-mode-button.dark .indicador{
-    transform: translateX(-30%);
+body.dark-mode #dark-mode-button:hover{
+    color: #2681ff;
 }

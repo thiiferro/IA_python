@@ -1,42 +1,130 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Seleciona os elementos
-    const form = document.getElementById("chatForm");
-    const inputMensagem = document.querySelector("#inputMensagem");
-    const mensagensContainer = document.querySelector(".mensagens .chatbot");
-    const darkModeButton = document.getElementById("dark-mode-button");
 
-    // Verificações de segurança para evitar null
-    if (!form) {
-        console.error("Elemento com ID 'chatForm' não encontrado no HTML.");
-        return;
-    }
-    if (!inputMensagem) {
-        console.error("Elemento com ID 'inputMensagem' não encontrado no HTML.");
-        return;
-    }
-    if (!mensagensContainer) {
-        console.error("Elemento '.mensagens .chatbot' não encontrado no HTML.");
-        return;
-    }
-    if (!darkModeButton) {
-        console.error("Elemento com ID 'dark-mode-button' não encontrado no HTML.");
-        return;
-    }
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     const form = document.getElementById("chatForm");
+//     const inputMensagem = document.getElementById("inputMensagem");
+//     const mensagensContainer = document.querySelector(".mensagens textarea"); 
+//     const darkModeButton = document.getElementById("dark-mode-button");
+
+//     // Ativar modo escuro se já estiver salvo no localStorage
+//     if (localStorage.getItem("dark-mode") === "enabled") {
+//         document.body.classList.add("dark-mode");
+//     }
+
+//     darkModeButton.addEventListener("click", function () {
+//         document.body.classList.toggle("dark-mode");
+//         localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+//     });
+
+//     form.addEventListener("submit", async function (event) {
+//         event.preventDefault();
+
+//         const mensagemTexto = inputMensagem.value.trim();
+//         if (!mensagemTexto) {
+//             alert("Digite uma mensagem.");
+//             return;
+//         }
+
+//         // Exibir mensagem do usuário no chat
+//         adicionarMensagem("Você", mensagemTexto);
+        
+//         // Limpa o campo de entrada e mantém o foco
+//         inputMensagem.value = "";
+//         inputMensagem.focus();
+
+//         // Iniciar resposta da IA com animação de bolinhas
+//         await obterRespostaIA(mensagemTexto);
+//     });
+
+//     function adicionarMensagem(remetente, mensagem) {
+//         mensagensContainer.value += `\n${remetente}: ${mensagem}\n`;
+//         mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
+//     }
+
+//     async function obterRespostaIA(mensagemTexto) {
+//         try {
+//             const response = await fetch("/chat", {
+//                 method: "POST",
+//                 headers: { "Content-Type": "application/json" },
+//                 body: JSON.stringify({ mensagem: mensagemTexto })
+//             });
+
+//             if (!response.ok) {
+//                 throw new Error("Erro ao obter resposta da IA.");
+//             }
+
+//             // Lê o corpo da resposta como um stream
+//             const reader = response.body.getReader();
+//             const decoder = new TextDecoder();
+
+//             // Exibir animação de bolinhas enquanto a IA processa
+//             let animacaoBolinhas = ["Megan: ", "Megan: .", "Megan: ..", "Megan: ..."];
+//             let animacaoIndex = 0;
+//             let bufferResposta = "";
+//             let animacaoInterval = setInterval(() => {
+//                 const linhas = mensagensContainer.value.split("\n");
+//                 linhas[linhas.length - 1] = animacaoBolinhas[animacaoIndex % 4];
+//                 mensagensContainer.value = linhas.join("\n") + "\n";
+//                 mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
+//                 animacaoIndex++;
+//             }, 500);
+
+//             mensagensContainer.value += "\nMegan: "; 
+//             mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
+
+//             while (true) {
+//                 const { value, done } = await reader.read();
+//                 if (done) {
+//                     clearInterval(animacaoInterval);
+//                     break;
+//                 }
+//                 const chunk = decoder.decode(value, { stream: true });
+//                 bufferResposta += chunk;
+                
+//                 const linhas = mensagensContainer.value.split("\n");
+//                 linhas[linhas.length - 1] = `Megan: ${bufferResposta}`;
+//                 mensagensContainer.value = linhas.join("\n") + "\n";
+//                 mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
+//             }
+//         } catch (error) {
+//             console.error("Erro:", error);
+//             adicionarMensagem("Megan", "Erro ao obter resposta da IA.");
+//         }
+//     }
+// });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("chatForm");
+    const inputMensagem = document.getElementById("inputMensagem");
+    const mensagensContainer = document.querySelector(".mensagens textarea"); 
+    const darkModeButton = document.getElementById("dark-mode-button");
+    const icon = darkModeButton.querySelector("i");
 
     // Ativar modo escuro se já estiver salvo no localStorage
     if (localStorage.getItem("dark-mode") === "enabled") {
         document.body.classList.add("dark-mode");
+        icon.classList.remove("fa-moon-o");
+        icon.classList.add("fa-sun-o");
+    } else {
+        icon.classList.remove("fa-sun-o");
+        icon.classList.add("fa-moon-o");
     }
 
-    // Evento para alternar entre modos claro e escuro
-    darkModeButton.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-        darkModeButton.classList.toggle("dark");
-        localStorage.setItem("dark-mode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+    darkModeButton.addEventListener("click", function () {
+        const isDark = document.body.classList.toggle("dark-mode");
+
+        if (isDark) {
+            icon.classList.remove("fa-moon-o");
+            icon.classList.add("fa-sun-o");
+            localStorage.setItem("dark-mode", "enabled");
+        } else {
+            icon.classList.remove("fa-sun-o");
+            icon.classList.add("fa-moon-o");
+            localStorage.setItem("dark-mode", "disabled");
+        }
     });
 
-    // Adiciona evento de envio ao formulário
-    form.addEventListener("submit", async (event) => {
+    form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const mensagemTexto = inputMensagem.value.trim();
@@ -45,27 +133,17 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Exibe a mensagem do usuário
         adicionarMensagem("Você", mensagemTexto);
-
-        // Limpa o campo de entrada e mantém o foco
         inputMensagem.value = "";
         inputMensagem.focus();
-
-        // Envia a mensagem ao backend e obtém a resposta
         await obterRespostaIA(mensagemTexto);
     });
 
-    // Função para adicionar mensagens na div de chat
     function adicionarMensagem(remetente, mensagem) {
-        const mensagemDiv = document.createElement("div");
-        mensagemDiv.classList.add("row");
-        mensagemDiv.innerHTML = `<strong>${remetente}:</strong> ${mensagem}`;
-        mensagensContainer.appendChild(mensagemDiv);
+        mensagensContainer.value += `\n${remetente}: ${mensagem}\n`;
         mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
     }
 
-    // Função para enviar mensagem ao backend e tratar a resposta
     async function obterRespostaIA(mensagemTexto) {
         try {
             const response = await fetch("/chat", {
@@ -74,13 +152,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify({ mensagem: mensagemTexto })
             });
 
-            if (!response.ok) {
-                throw new Error("Erro ao obter resposta da IA.");
-            }
+            if (!response.ok) throw new Error("Erro ao obter resposta da IA.");
 
-            // Lê a resposta como texto simples
-            const respostaIA = await response.text();
-            adicionarMensagem("Megan", respostaIA);
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+
+            let animacaoBolinhas = ["Megan: ", "Megan: .", "Megan: ..", "Megan: ..."];
+            let animacaoIndex = 0;
+            let bufferResposta = "";
+
+            let animacaoInterval = setInterval(() => {
+                const linhas = mensagensContainer.value.split("\n");
+                linhas[linhas.length - 1] = animacaoBolinhas[animacaoIndex % 4];
+                mensagensContainer.value = linhas.join("\n") + "\n";
+                mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
+                animacaoIndex++;
+            }, 500);
+
+            mensagensContainer.value += "\nMegan: "; 
+            mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
+
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) {
+                    clearInterval(animacaoInterval);
+                    break;
+                }
+                const chunk = decoder.decode(value, { stream: true });
+                bufferResposta += chunk;
+                
+                const linhas = mensagensContainer.value.split("\n");
+                linhas[linhas.length - 1] = `Megan: ${bufferResposta}`;
+                mensagensContainer.value = linhas.join("\n") + "\n";
+                mensagensContainer.scrollTop = mensagensContainer.scrollHeight;
+            }
         } catch (error) {
             console.error("Erro:", error);
             adicionarMensagem("Megan", "Erro ao obter resposta da IA.");
