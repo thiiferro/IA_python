@@ -86,4 +86,6 @@ Para rodar o backend, o Flask deve estar instalado. Se não estiver, basta rodar
 pip install flask
 ```
 
+## Exemplo em funcionamento
+
 ![Protótipo](https://github.com/user-attachments/assets/5602d4bb-c9fd-474a-b31e-29faad1009ea)
